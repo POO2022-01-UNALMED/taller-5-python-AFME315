@@ -1,42 +1,50 @@
-from zooAnimales.animal import Animal
+from .animal import Animal
+
 class Mamifero(Animal):
-    _listado = []
-    leones = 0
     caballos = 0
-    totalMamiferos = 0
-    def __init__(self, nombre, edad, habitat, genero, pelaje, patas):
-        super().__init__(nombre, edad, habitat, genero)
+    leones = 0
+    _listado = []
+
+    def __init__(self, nombre = "", edad = 0, habitat = "", genero = "", pelaje = False, patas = 0):
+        Animal.__init__(self, nombre, edad, habitat, genero)
         self._pelaje = pelaje
         self._patas = patas
-        Mamifero.totalMamiferos += 1
         Mamifero._listado.append(self)
-    def cantidadMamiferos(self):
-        return Mamifero.totalMamiferos
-    @classmethod
-    def crearCaballo(cls, nombre, edad, genero):
-        cls.caballos += 1
-        return Mamifero(nombre, edad,"pradera", genero, True, 4)
-    @classmethod
-    def crearLeon(cls, nombre, edad, genero):
-        cls.leones += 1
-        return Mamifero(nombre, edad,"selva", genero, True, 4)
     
     @classmethod
-    def setListado(cls, listado):
-        cls._listado = listado
+    def cantidadMamiferos(cls):
+        return len(cls._listado)
+    
+    @classmethod
+    def crearCaballo(cls, nombre, edad, genero):
+        caballo = Mamifero(nombre, edad, "pradera", genero, True, 4)
+        cls.caballos += 1
+        # cls._listado.append(caballo)
+        return caballo
+
+    @classmethod
+    def crearLeon(cls, nombre, edad, genero):
+        leon = Mamifero(nombre, edad, "selva", genero, True, 4)
+        cls.leones += 1
+        # cls._listado.append(leon)
+        return leon
+
     @classmethod
     def getListado(cls):
         return cls._listado
 
-    def setPelaje(self, pelaje):
-        self._pelaje = pelaje
-    def getPelaje(self):
-        return self._pelaje
-
-    def setPatas(self, patas):
-        self._patas = patas
-    def getPatas(self):
-        return self._patas
+    @classmethod
+    def setListado(cls, listado):
+        cls._listado = listado
 
     def isPelaje(self):
         return self._pelaje
+
+    def setPelaje(self, pelaje):
+        self._pelaje = pelaje
+
+    def getPatas(self):
+        return self._patas
+
+    def setPatas(self, patas):
+        self._patas = patas
