@@ -1,47 +1,47 @@
-from .animal import Animal
+from zooAnimales.animal import Animal
 
 class Ave(Animal):
 
-    halcones = 0
-    aguilas = 0
-    _listado = []
+  _listado=[]
+  halcones=0
+  aguilas=0
+  def __init__(self,nombre,edad,habitat,genero,colorPlumas):
 
-    def __init__(self, nombre = "", edad = 0, habitat = "", genero = "", colorPlumas = ""):
-        Animal.__init__(self, nombre, edad, habitat, genero)
-        self._colorPlumas = colorPlumas
-        Ave._listado.append(self)
+    super().__init__(nombre,edad,habitat,genero)
 
-    @classmethod
-    def cantidadAves(cls):
-        return len(cls._listado)
+    self._colorPlumas=colorPlumas
 
-    @classmethod
-    def crearHalcon(cls, nombre, edad, genero):
-        halcon = Ave(nombre, edad, "montanas", genero, "cafe glorioso")
-        Ave.halcones += 1
-        # Ave._listado.append(halcon)
-        return halcon
+    Ave._listado.append(self)
+    
+    Animal.setTotalAnimales(Animal.getTotalAnimales()+1)
 
-    @classmethod
-    def crearAguila(cls, nombre, edad, genero):
-        aguila = Ave(nombre, edad, "montanas", genero, "blanco y amarillo")
-        Ave.aguilas += 1
-        # Ave._listado.append(aguila)
-        return aguila
+  @classmethod
+  def setListado(cls,listado):
+    cls._listado=listado
 
-    @classmethod
-    def getListado(cls):
-        return cls._listado
+  def setColorPlumas(self,pelaje):
+    self._colorPlumas=pelaje
 
-    @classmethod
-    def setListado(cls, listado):
-        cls._listado = listado
+  def getColorPlumas(self):
+    return self._colorPlumas
 
-    def getColorPlumas(self):
-        return self._colorPlumas
+  @classmethod
+  def cantidadAves(cls):
+    x=0
+    for e in cls._listado:
+      if (str(type(e).__name__)=="Ave"):
+        x+=1
+    return x
 
-    def setColorPlumas(self, colorPlumas):
-        self._colorPlumas = colorPlumas
+  @classmethod
+  def crearHalcon(self,nombre,edad,genero):
+    Ave.halcones+=1
+    return Ave(nombre,edad,"montanas",genero,"cafe glorioso")
 
-    def movimiento(self):
-        return "volar"
+  @classmethod
+  def crearAguila(self,nombre,edad,genero):
+    Ave.aguilas+=1
+    return Ave(nombre,edad,"montanas",genero,"blanco y amarillo")  
+    
+  def Movimiento(self):
+    return "volar"
